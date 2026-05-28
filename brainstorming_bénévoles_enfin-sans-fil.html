@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Brainstorming Bénévoles — En Faim Sans Fil</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@900&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {--blue:#7BCFF1; --pink:#FF686D; --orange:#FA9B5B; --green:#BED496; --dark:#2B2B2B;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Montserrat,sans-serif;background:#F0FAFF;color:var(--dark);min-height:100vh}
+header{background:white;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--blue);position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-wrap img{height:56px}
+.logo-text h1{font-family:"League Spartan",sans-serif;font-size:1.25rem;color:var(--pink);font-weight:900;letter-spacing:-.5px}
+.logo-text p{font-size:.6rem;color:var(--blue);text-transform:uppercase;font-weight:700;margin-top:2px}
+.timer-area{text-align:center}
+.timer-label{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--blue);font-weight:700}
+.timer-display{font-family:"League Spartan",sans-serif;font-size:2rem;font-weight:900;color:var(--orange);line-height:1}
+.timer-display.urgent{color:var(--pink);animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+main{padding:2rem;max-width:1400px;margin:0 auto}
+.slide{display:none;animation:fadeIn .3s}
+.slide.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.section-badge{display:inline-block;background:var(--blue);color:white;padding:4px 14px;border-radius:20px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.section-badge.pink{background:var(--pink)}
+.section-badge.orange{background:var(--orange)}
+.section-badge.green{background:var(--green)}
+h2{font-family:"League Spartan",sans-serif;font-size:1.95rem;font-weight:900;color:var(--dark);line-height:1.1;margin-bottom:.5rem}
+.intro-hero{text-align:center;padding:3rem 2rem;max-width:700px;margin:0 auto}
+.intro-hero h2{font-size:2.4rem;margin-bottom:1rem}
+.intro-hero .pink{color:var(--pink)}
+.intro-hero .orange{color:var(--orange)}
+.intro-hero p{color:#555;font-size:.95rem;line-height:1.7;margin-bottom:2rem;font-weight:500}
+.intro-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:2.5rem}
+.intro-step{background:white;border-radius:16px;padding:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.08);border-top:4px solid var(--blue);text-align:left}
+.intro-step:nth-child(2){border-top-color:var(--green)}
+.intro-step:nth-child(3){border-top-color:var(--orange)}
+.intro-step:nth-child(4){border-top-color:var(--pink)}
+.step-num{font-family:"League Spartan",sans-serif;font-size:1.8rem;font-weight:900;color:var(--blue);opacity:.3;line-height:1}
+.intro-step:nth-child(2) .step-num{color:var(--green)}
+.intro-step:nth-child(3) .step-num{color:var(--orange)}
+.intro-step:nth-child(4) .step-num{color:var(--pink)}
+.intro-step p{font-size:.8rem;color:var(--dark);margin-top:6px;line-height:1.5;font-weight:500}
+.btn-start{background:var(--pink);color:white;border:none;padding:16px 48px;border-radius:50px;font-family:"League Spartan",sans-serif;font-weight:900;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 16px rgba(255,104,109,.35);transition:all .2s}
+.btn-start:hover{background:#e5575c;transform:translateY(-2px);box-shadow:0 6px 22px rgba(255,104,109,.45)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;margin:2rem 0}
+.mission-card{background:white;border-radius:16px;padding:1.2rem;border:2.5px solid transparent;cursor:pointer;transition:all .25s;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.mission-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.12);border-color:var(--blue)}
+.mission-card.selected{border-color:var(--pink);background:#FFF5F5}
+.mission-card.selected::after{content:"✓";position:absolute;top:10px;right:12px;width:26px;height:26px;background:var(--pink);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem}
+.card-icon{font-size:1.8rem;margin-bottom:8px;display:block}
+.card-title{font-family:"League Spartan",sans-serif;font-weight:800;font-size:.95rem;color:var(--dark);margin-bottom:6px}
+.card-desc{font-size:.77rem;color:#666;line-height:1.55}
+.card-time{font-size:.7rem;color:var(--blue);margin-top:8px;font-weight:600}
+.ref-card{border-radius:18px;padding:1.5rem;color:white;margin-bottom:1.5rem;background:linear-gradient(135deg, var(--blue) 0%, #A8DEF5 100%)}
+.ref-card.orange{background:linear-gradient(135deg, var(--orange) 0%, #FDC08D 100%)}
+.ref-card h3{font-family:"League Spartan",sans-serif;font-weight:900;font-size:1rem;margin-bottom:1rem}
+.ref-tag{background:rgba(255,255,255,.3);border-radius:10px;padding:5px 10px;font-size:.72rem;display:inline-block;margin:3px 3px 3px 0;font-weight:600}
+.referentes-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+.transversal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem}
+.corner-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.corner-card-header{padding:1.2rem;color:white;font-weight:900}
+.corner-card.blue .corner-card-header{background:linear-gradient(135deg, var(--blue), #A8DEF5)}
+.corner-card.pink .corner-card-header{background:linear-gradient(135deg, var(--pink), #FFA5A8)}
+.corner-card.green .corner-card-header{background:linear-gradient(135deg, var(--green), #9AB870)}
+.corner-card.orange .corner-card-header{background:linear-gradient(135deg, var(--orange), #FDC08D)}
+.corner-card h4{font-family:"League Spartan",sans-serif;font-size:.95rem;margin:0}
+.corner-card-body{padding:1.2rem}
+.corner-card ul{list-style:none}
+.corner-card li{font-size:.77rem;color:#555;padding:5px 0 5px 16px;line-height:1.4}
+.corner-card li::before{content:"→ ";color:var(--blue);font-weight:700}
+.corner-card.pink li::before{color:var(--pink)}
+.corner-card.green li::before{color:var(--green)}
+.corner-card.orange li::before{color:var(--orange)}
+.selection-panel{background:var(--dark);border-radius:16px;padding:1.5rem;margin:2rem 0;color:white}
+.selection-panel h3{font-family:"League Spartan",sans-serif;font-weight:800;font-size:1rem;margin-bottom:1rem}
+.counter-badge{background:var(--pink);color:white;border-radius:20px;padding:3px 10px;font-size:.7rem;font-weight:700;margin-left:8px}
+.export-section{background:white;border-radius:16px;padding:2rem;margin:2rem 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.export-section h3{font-family:"League Spartan",sans-serif;font-weight:900;color:var(--dark);font-size:1.25rem;margin-bottom:.5rem}
+.benevole-inputs{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem}
+.benevole-input-row{display:flex;align-items:center;gap:10px;background:#F0FAFF;border-radius:10px;padding:10px 14px;flex-wrap:wrap}
+.benevole-input-row span{font-family:"League Spartan",sans-serif;font-weight:700;font-size:.78rem;color:var(--dark);min-width:85px}
+.bev-name-input{flex:1;min-width:140px;padding:6px 12px;border:2px solid #DCF2FC;border-radius:8px;outline:none;font-size:.82rem}
+.bev-name-input:focus{border-color:var(--blue)}
+.btn-add{background:var(--orange);color:white;border:none;padding:10px 20px;border-radius:10px;font-family:"League Spartan",sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s}
+.btn-add:hover{background:#e8895a;transform:scale(1.02)}
+.export-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:1.5rem}
+.btn-export{border:none;padding:12px 24px;border-radius:12px;font-family:"League Spartan",sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;text-decoration:none}
+.btn-export.docs{background:var(--blue);color:white}
+.btn-export.docs:hover{background:#4AAFE0;transform:translateY(-2px)}
+.btn-export.open{background:var(--green);color:var(--dark);font-weight:700}
+.btn-export.open:hover{background:var(--green);transform:translateY(-2px)}
+.nav-btns{display:flex;gap:12px;justify-content:flex-end;margin-top:2rem;padding-top:1.5rem;border-top:2px solid #E0E0E0}
+.btn-nav{padding:12px 28px;border-radius:12px;font-family:"League Spartan",sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:all .2s}
+.btn-nav.prev{background:white;color:var(--dark);border:2px solid #ddd}
+.btn-nav.prev:hover{border-color:var(--blue);background:#F0FAFF}
+.btn-nav.next{background:var(--pink);color:white;box-shadow:0 3px 12px rgba(255,104,109,.3)}
+.btn-nav.next:hover{background:#e5575c;transform:translateY(-2px)}
+#selectedList{color:rgba(255,255,255,.5);font-size:.85rem;font-style:italic;margin-top:1rem}
+#exportStatus{margin-top:1rem;color:var(--blue);font-weight:700;display:none}
+@media(max-width:700px){
+  .referentes-grid{grid-template-columns:1fr}
+  header{flex-direction:column;gap:1rem;text-align:center}
+  h2{font-size:1.6rem}
+  .timer-display{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-text">
+      <h1>En Faim Sans Fil</h1>
+      <p>Brainstorming Bénévoles</p>
+    </div>
+  </div>
+  <div class="timer-area">
+    <div class="timer-label">⏱ Temps</div>
+    <div class="timer-display" id="timerDisplay">15:00</div>
+    <button class="btn-add" style="margin-top:6px;padding:4px 12px;font-size:.7rem" onclick="toggleTimer()">Lancer</button>
+  </div>
+</header>
+
+<main>
+
+<!-- INTRO -->
+<div class="slide active" id="slide0">
+  <div class="intro-hero">
+    <h2>Trouvons <span class="pink">ensemble</span><br>votre <span class="orange">place !</span></h2>
+    <p>Ce brainstorming de <strong>15 minutes</strong> vous invite à explorer toutes les missions du pôle Accompagnement Famille. Chaque bénévole choisira <strong>1 à 2 missions</strong> qui lui correspondent.</p>
+    <div class="intro-steps">
+      <div class="intro-step"><div class="step-num">01</div><p><strong>Explorez</strong> les missions</p></div>
+      <div class="intro-step"><div class="step-num">02</div><p><strong>Cliquez</strong> sur vos favorites</p></div>
+      <div class="intro-step"><div class="step-num">03</div><p><strong>Proposez</strong> une idée nouvelle</p></div>
+      <div class="intro-step"><div class="step-num">04</div><p><strong>Exportez</strong> vers Google Docs</p></div>
+    </div>
+    <button class="btn-start" onclick="goToSlide(1);toggleTimer()">🚀 C'est parti !</button>
+  </div>
+</div>
+
+<!-- ACCOMPAGNEMENT -->
+<div class="slide" id="slide1">
+  <div class="section-badge pink">Étape 1 / 6</div>
+  <h2>❤️ Accompagnement des familles</h2>
+  <div class="cards-grid" id="grid1"></div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(0)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(2)">Suivant →</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="slide" id="slide2">
+  <div class="section-badge">Étape 2 / 6</div>
+  <h2>🗂️ Admin & outils numériques</h2>
+  <div class="cards-grid" id="grid2"></div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(1)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(3)">Suivant →</button>
+  </div>
+</div>
+
+<!-- SENSIBILISATION -->
+<div class="slide" id="slide3">
+  <div class="section-badge orange">Étape 3 / 6</div>
+  <h2>📣 Sensibilisation & événements</h2>
+  <div class="cards-grid" id="grid3"></div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(2)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(4)">Suivant →</button>
+  </div>
+</div>
+
+<!-- FORMATION -->
+<div class="slide" id="slide4">
+  <div class="section-badge green">Étape 4 / 6</div>
+  <h2>💡 Formation & idées nouvelles</h2>
+  <div class="cards-grid" id="grid4"></div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(3)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(5)">Suivant →</button>
+  </div>
+</div>
+
+<!-- COREFERENTES -->
+<div class="slide" id="slide5">
+  <div class="section-badge pink">Étape 5 / 6</div>
+  <h2>👑 Rôles des coréférentes</h2>
+  <div class="referentes-grid">
+    <div class="ref-card">
+      <h3>🔗 Coordination & lien interne</h3>
+      <div class="ref-tag">Animation réunions</div>
+      <div class="ref-tag">Accueil bénévoles</div>
+      <div class="ref-tag">Suivi engagements</div>
+      <div class="ref-tag">Bilan pôle</div>
+    </div>
+    <div class="ref-card orange">
+      <h3>📈 Développement du pôle</h3>
+      <div class="ref-tag">Besoins des familles</div>
+      <div class="ref-tag">Recrutement bénévoles</div>
+      <div class="ref-tag">Partenariats CHU CAMSP</div>
+      <div class="ref-tag">Plan de formation</div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(4)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(6)">Suivant →</button>
+  </div>
+</div>
+
+<!-- TRANSVERSAL -->
+<div class="slide" id="slide6">
+  <div class="section-badge">Étape 6 / 6</div>
+  <h2>🌐 Missions transversales & partenariats</h2>
+  <div class="transversal-grid">
+    <div class="corner-card blue">
+      <div class="corner-card-header"><h4>🤝 Lien inter-pôles</h4></div>
+      <div class="corner-card-body"><ul>
+        <li>Réunions plénières de l'association</li>
+        <li>Relayer les infos entre pôles</li>
+        <li>Co-construire des actions</li>
+        <li>Événements communs</li>
+      </ul></div>
+    </div>
+    <div class="corner-card pink">
+      <div class="corner-card-header"><h4>🏥 Partenariats médico-sociaux</h4></div>
+      <div class="corner-card-body"><ul>
+        <li>Services hospitaliers CHU CAMSP</li>
+        <li>Maintenir lien avec pros de santé</li>
+        <li>Réseaux d'oralité alimentaire</li>
+        <li>Co-actions avec autres associations</li>
+      </ul></div>
+    </div>
+    <div class="corner-card green">
+      <div class="corner-card-header"><h4>📣 Communication externe</h4></div>
+      <div class="corner-card-body"><ul>
+        <li>Rapport d'activité annuel</li>
+        <li>Témoignages lors d'événements</li>
+        <li>Réseaux sociaux de l'association</li>
+        <li>Articles pour la newsletter</li>
+      </ul></div>
+    </div>
+    <div class="corner-card orange">
+      <div class="corner-card-header"><h4>💰 Ressources & financement</h4></div>
+      <div class="corner-card-body"><ul>
+        <li>Rechercher appels à projets</li>
+        <li>Dossiers de subvention</li>
+        <li>Mécénat de compétences</li>
+        <li>Collectes solidaires</li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(5)">← Retour</button>
+    <button class="btn-nav next" onclick="goToSlide(7)">Finaliser →</button>
+  </div>
+</div>
+
+<!-- RECAP & EXPORT -->
+<div class="slide" id="slide7">
+  <div class="section-badge green">✅ Récapitulatif</div>
+  <h2>🎉 Vos choix & export</h2>
+  <div class="selection-panel">
+    <h3>📋 Missions sélectionnées <span class="counter-badge" id="selCount">0</span></h3>
+    <div id="selectedList">Aucune mission sélectionnée</div>
+  </div>
+  <div class="export-section">
+    <h3>👥 Les bénévoles présentes</h3>
+    <div class="benevole-inputs" id="benevoleInputs">
+      <div class="benevole-input-row"><span>Bénévole 1</span><input class="bev-name-input" placeholder="Prénom..." /></div>
+      <div class="benevole-input-row"><span>Bénévole 2</span><input class="bev-name-input" placeholder="Prénom..." /></div>
+    </div>
+    <button class="btn-add" onclick="addBenevoleRow()" style="margin-bottom:1.5rem">+ Ajouter une bénévole</button>
+    <div class="export-buttons">
+      <button class="btn-export docs" onclick="exportToGDocs()">📋 Copier pour Google Docs</button>
+      <a href="https://docs.google.com/document/create" target="_blank" class="btn-export open">🔗 Ouvrir Google Docs</a>
+    </div>
+    <div id="exportStatus">✅ Texte copié ! Collez dans Google Docs</div>
+  </div>
+  <div class="nav-btns">
+    <button class="btn-nav prev" onclick="goToSlide(6)">← Retour</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+const missions = [
+  {id:"c1",cat:"❤️",grid:1,icon:"👋",title:"Accueil des nouvelles familles",desc:"Premier contact chaleureux, présentation de l'association"},
+  {id:"c2",cat:"❤️",grid:1,icon:"🤝",title:"Soutien moral aux parents",desc:"Écoute des parents qui vivent l'épreuve de la nutrition entérale"},
+  {id:"c3",cat:"❤️",grid:1,icon:"📋",title:"Aide aux démarches administratives",desc:"Accompagner dans les dossiers MDPH, CAF, aides"},
+  {id:"c4",cat:"❤️",grid:1,icon:"📞",title:"Permanence téléphonique",desc:"Assurer une disponibilité pour les familles qui ont besoin"},
+  {id:"c5",cat:"❤️",grid:1,icon:"🧭",title:"Orientation vers les professionnels",desc:"Aider à trouver orthophoniste, psychologue, pédiatre"},
+  {id:"c6",cat:"❤️",grid:1,icon:"💬",title:"Animation groupe d'entraide",desc:"Modérer et animer Facebook/WhatsApp des familles"},
+  {id:"c7",cat:"❤️",grid:1,icon:"🗓️",title:"Coordination des rendez-vous",desc:"Aider à planifier les RDV médicaux et suivi du sevrage"},
+  {id:"c8",cat:"❤️",grid:1,icon:"📖",title:"Bibliothèque de ressources",desc:"Recenser et partager des ressources fiables"},
+  {id:"a1",cat:"🗂️",grid:2,icon:"📁",title:"Gestion du Drive partagé",desc:"Organiser et classer les documents du pôle"},
+  {id:"a2",cat:"🗂️",grid:2,icon:"📧",title:"Gestion de la messagerie",desc:"Traiter les mails, orienter les demandes"},
+  {id:"a3",cat:"🗂️",grid:2,icon:"📝",title:"Rédaction des comptes rendus",desc:"Prendre les notes en réunion et rédiger le CR"},
+  {id:"a4",cat:"🗂️",grid:2,icon:"📅",title:"Planning des bénévoles",desc:"Tenir à jour le planning des permanences"},
+  {id:"a5",cat:"🗂️",grid:2,icon:"📊",title:"Tableau de bord & indicateurs",desc:"Compiler les données d'activité du pôle"},
+  {id:"a6",cat:"🗂️",grid:2,icon:"📣",title:"Communication interne du pôle",desc:"Newsletter et infos régulières aux bénévoles"},
+  {id:"a7",cat:"🗂️",grid:2,icon:"🗃️",title:"Suivi des dossiers familles",desc:"Créer et mettre à jour les fiches de suivi RGPD"},
+  {id:"a8",cat:"🗂️",grid:2,icon:"🖨️",title:"Création de supports & outils",desc:"Flyers, affiches, guides pratiques (Canva, Docs)"},
+  {id:"s1",cat:"📣",grid:3,icon:"🏥",title:"Sensibilisation des pros de santé",desc:"Intervenir auprès des CHU, CAMSP, libéraux"},
+  {id:"s2",cat:"📣",grid:3,icon:"🎤",title:"Témoignages & prise de parole",desc:"Partager l'histoire de l'association lors d'événements"},
+  {id:"s3",cat:"📣",grid:3,icon:"🎪",title:"Organisation d'événements solidaires",desc:"Organiser concerts, courses, collectes"},
+  {id:"s4",cat:"📣",grid:3,icon:"📱",title:"Création de contenu réseaux sociaux",desc:"Posts, reels, stories pour l'association"},
+  {id:"s5",cat:"📣",grid:3,icon:"✍️",title:"Rédaction de la newsletter",desc:"Articles, témoignages, actus pour la newsletter"},
+  {id:"s6",cat:"📣",grid:3,icon:"🎬",title:"Documentation photo et vidéo",desc:"Documenter les événements (accords signés)"},
+  {id:"f1",cat:"💡",grid:4,icon:"🎓",title:"Formation : nutrition entérale",desc:"Former les nouveaux bénévoles sur le sujet"},
+  {id:"f2",cat:"💡",grid:4,icon:"🧠",title:"Formation : écoute active",desc:"Techniques d'écoute bienveillante et soutien"},
+  {id:"f3",cat:"💡",grid:4,icon:"⚖️",title:"Veille sur les droits des familles",desc:"Suivre droits MDPH et dispositifs"},
+  {id:"f4",cat:"💡",grid:4,icon:"🔍",title:"Veille scientifique & médicale",desc:"Publications sur nutrition entérale et oralité"},
+  {id:"f5",cat:"💡",grid:4,icon:"🤖",title:"Exploration d'outils numériques",desc:"Tester outils pour améliorer le fonctionnement"},
+  {id:"f6",cat:"💡",grid:4,icon:"🌱",title:"Espace de témoignages familles",desc:"Collecter et valoriser les témoignages"}
+];
+
+const colors = {"❤️":"#FF686D","🗂️":"#7BCFF1","📣":"#FA9B5B","💡":"#9AB870"};
+const labels = {"❤️":"Accompagnement","🗂️":"Admin","📣":"Sensibilisation","💡":"Formation"};
+let selected = new Set(), currentSlide = 0, timerInterval, timeLeft = 900, running = false;
+
+function buildGrid(id, n) {
+  document.getElementById(id).innerHTML = missions.filter(m => m.grid === n).map(m => `<div class="mission-card" id="card_${m.id}" onclick="toggleMission('${m.id}')"><span class="card-icon">${m.icon}</span><div class="card-title">${m.title}</div><div class="card-desc">${m.desc}</div><div class="card-time">🕐</div></div>`).join('');
+}
+buildGrid('grid1', 1); buildGrid('grid2', 2); buildGrid('grid3', 3); buildGrid('grid4', 4);
+
+function goToSlide(n) {
+  document.getElementById('slide' + currentSlide).classList.remove('active');
+  currentSlide = n;
+  document.getElementById('slide' + n).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (n === 7) updateSelection();
+}
+
+function toggleMission(id) {
+  const el = document.getElementById('card_' + id);
+  if (selected.has(id)) { selected.delete(id); el.classList.remove('selected'); }
+  else { selected.add(id); el.classList.add('selected'); }
+  document.getElementById('selCount').textContent = selected.size;
+}
+
+function updateSelection() {
+  const list = document.getElementById('selectedList');
+  if (!selected.size) { list.innerHTML = 'Aucune mission sélectionnée'; return; }
+  list.innerHTML = [...selected].map(id => {
+    const m = missions.find(x => x.id === id);
+    return `<div style="display:inline-block;background:${colors[m.cat]}33;border:1px solid ${colors[m.cat]}66;border-radius:20px;padding:6px 12px;margin:4px;font-size:.78rem;color:white">${m.icon} ${m.title}</div>`;
+  }).join('');
+}
+
+function toggleTimer() {
+  if (running) { clearInterval(timerInterval); running = false; }
+  else { running = true; timerInterval = setInterval(() => { if (--timeLeft <= 0) return; updateTimer(); }, 1000); }
+}
+
+function updateTimer() {
+  const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+  const s = (timeLeft % 60).toString().padStart(2, '0');
+  document.getElementById('timerDisplay').textContent = m + ':' + s;
+  document.getElementById('timerDisplay').classList.toggle('urgent', timeLeft <= 180);
+}
+
+function addBenevoleRow() {
+  const c = document.getElementById('benevoleInputs');
+  const d = document.createElement('div');
+  d.className = 'benevole-input-row';
+  d.innerHTML = `<span>Bénévole ${c.children.length + 1}</span><input class="bev-name-input" placeholder="Prénom..." />`;
+  c.appendChild(d);
+}
+
+function exportToGDocs() {
+  const names = [...document.querySelectorAll('.bev-name-input')].map(i => i.value.trim()).filter(Boolean);
+  const mList = [...selected].map(id => missions.find(m => m.id === id)).filter(Boolean);
+  const date = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'});
+  let t = 'BRAINSTORMING BÉNÉVOLES — EN FAIM SANS FIL\n' + date + '\n' + '═'.repeat(60) + '\n\n';
+  t += 'MISSIONS RETENUES (' + mList.length + ')\n' + '─'.repeat(60) + '\n';
+  ['❤️','🗂️','📣','💡'].forEach(cat => {
+    const m = mList.filter(x => x.cat === cat);
+    if (!m.length) return;
+    t += '\n' + cat + ' ' + labels[cat].toUpperCase() + '\n';
+    m.forEach(x => { t += '  • ' + x.title + '\n    → ' + x.desc + '\n'; });
+  });
+  t += '\n' + '═'.repeat(60) + '\nRÉPARTITION PAR BÉNÉVOLE\n' + '─'.repeat(60) + '\n';
+  (names.length ? names : ['Bénévole 1', 'Bénévole 2']).forEach(n => {
+    t += '\n👤 ' + n + '\n   Mission 1 : ___________________________________\n   Mission 2 (optionnel) : _____________________\n   Disponibilité : _______________________________\n';
+  });
+  t += '\n' + '═'.repeat(60) + '\nGénéré le ' + date + ' — En Faim Sans Fil\n';
+  navigator.clipboard.writeText(t).then(() => {
+    document.getElementById('exportStatus').style.display = 'block';
+    setTimeout(() => { document.getElementById('exportStatus').style.display = 'none'; }, 3000);
+  });
+}
+</script>
+
+</body>
+</html>
